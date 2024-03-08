@@ -1,0 +1,16 @@
+stages:
+  - build
+
+variables:
+  DOCKER_DRIVER: overlay2
+
+services:
+  - docker:19.03.0-dind
+
+before_script:
+  - export DOCKER_TLS_CERTDIR="/certs"
+
+build_image:
+  stage: build
+  script:
+    - docker build . --build-arg BUILD_VERSION=1.1.1 -t annatar:latest
